@@ -1,10 +1,10 @@
 ******************************************************************************
-                  MSP430 Linker PC v4.4.3                      
+                  MSP430 Linker PC v4.4.6                      
 ******************************************************************************
->> Linked Fri Feb 19 16:30:07 2016
+>> Linked Wed Feb 24 11:53:38 2016
 
 OUTPUT FILE NAME:   <BasicPWM.out>
-ENTRY POINT SYMBOL: "_c_int00_noinit_noargs_noexit"  address: 00008172
+ENTRY POINT SYMBOL: "_c_int00_noinit_noargs_noexit"  address: 00008160
 
 
 MEMORY CONFIGURATION
@@ -19,7 +19,7 @@ MEMORY CONFIGURATION
   INFOB                 00001900   00000080  00000000  00000080  RWIX
   INFOA                 00001980   00000080  00000000  00000080  RWIX
   RAM                   00001c00   00000800  00000050  000007b0  RWIX
-  FLASH                 00008000   00007f80  00000192  00007dee  RWIX
+  FLASH                 00008000   00007f80  00000180  00007e00  RWIX
   INT00                 0000ff80   00000002  00000000  00000002  RWIX
   INT01                 0000ff82   00000002  00000000  00000002  RWIX
   INT02                 0000ff84   00000002  00000000  00000002  RWIX
@@ -95,13 +95,13 @@ section   page    origin      length       input sections
                   000023b0    00000002     rts430x_lc_sd_eabi.lib : boot.obj (.stack)
                   000023b2    0000004e     --HOLE--
 
-.text      0    00008000    00000192     
-                  00008000    00000124     main.obj (.text:main)
-                  00008124    0000004e     main.obj (.text:SetVcoreUp)
-                  00008172    00000012     rts430x_lc_sd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noinit_noargs_noexit)
-                  00008184    00000006                            : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
-                  0000818a    00000004                            : pre_init.obj (.text:_system_pre_init)
-                  0000818e    00000004                            : exit.obj (.text:abort)
+.text      0    00008000    00000180     
+                  00008000    00000112     main.obj (.text:main)
+                  00008112    0000004e     main.obj (.text:SetVcoreUp)
+                  00008160    00000012     rts430x_lc_sd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noinit_noargs_noexit)
+                  00008172    00000006                            : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
+                  00008178    00000004                            : pre_init.obj (.text:_system_pre_init)
+                  0000817c    00000004                            : exit.obj (.text:abort)
 
 .cinit     0    00008000    00000000     UNINITIALIZED
 
@@ -206,7 +206,7 @@ address   name
 00000752  ADC10MEM0                    
 00000753  ADC10MEM0_H                  
 00000752  ADC10MEM0_L                  
-0000818e  C$$EXIT                      
+0000817c  C$$EXIT                      
 000008c0  CBCTL0                       
 000008c1  CBCTL0_H                     
 000008c0  CBCTL0_L                     
@@ -540,7 +540,7 @@ address   name
 0000019a  SYSUNIV                      
 0000019b  SYSUNIV_H                    
 0000019a  SYSUNIV_L                    
-00008124  SetVcoreUp                   
+00008112  SetVcoreUp                   
 000003d2  TA0CCR0                      
 000003d4  TA0CCR1                      
 000003d6  TA0CCR2                      
@@ -690,7 +690,7 @@ address   name
 0000015c  WDTCTL_L                     
 00002400  __STACK_END                  
 00000050  __STACK_SIZE                 
-00008184  __TI_ISR_TRAP                
+00008172  __TI_ISR_TRAP                
 0000ffda  __TI_int45                   
 0000ffdc  __TI_int46                   
 0000ffde  __TI_int47                   
@@ -711,11 +711,11 @@ address   name
 0000fffc  __TI_int62                   
 ffffffff  __binit__                    
 ffffffff  __c_args__                   
-00008172  _c_int00_noinit_noargs_noexit
+00008160  _c_int00_noinit_noargs_noexit
 0000fffe  _reset_vector                
 000023b0  _stack                       
-0000818a  _system_pre_init             
-0000818e  abort                        
+00008178  _system_pre_init             
+0000817c  abort                        
 ffffffff  binit                        
 00008000  main                         
 
@@ -1238,12 +1238,12 @@ address   name
 000023b0  _stack                       
 00002400  __STACK_END                  
 00008000  main                         
-00008124  SetVcoreUp                   
-00008172  _c_int00_noinit_noargs_noexit
-00008184  __TI_ISR_TRAP                
-0000818a  _system_pre_init             
-0000818e  C$$EXIT                      
-0000818e  abort                        
+00008112  SetVcoreUp                   
+00008160  _c_int00_noinit_noargs_noexit
+00008172  __TI_ISR_TRAP                
+00008178  _system_pre_init             
+0000817c  C$$EXIT                      
+0000817c  abort                        
 0000ffda  __TI_int45                   
 0000ffdc  __TI_int46                   
 0000ffde  __TI_int47                   

@@ -7,6 +7,7 @@ void SetVcoreUp (unsigned int level);
  */
 void main(void) {
     volatile unsigned long i;	// Declare counter variable
+    volatile int count;
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
     P1SEL |= BIT6;				// Set P1.6 to output direction (Timer D0.0 output)
@@ -59,27 +60,20 @@ void main(void) {
     // Configure the CCRx blocks
     TD0CCR0 = 2000;                           // PWM Period. So sw freq = 200MHz/2000 = 100 kHz
     TD0CCTL1 = OUTMOD_7 + CLLD_1;             // CCR1 reset/set
-    TD0CCR1 = 1550;                           // CCR1 PWM duty cycle of 1900/2000 = 95%
+    TD0CCR1 = 1400;                           // CCR1 PWM duty cycle of 1900/2000 = 95%
     TD0CCTL2 = OUTMOD_7 + CLLD_1;             // CCR2 reset/set
     TD0CCR2 = 1000;                            // CCR2 PWM duty cycle of 1000/2000 = 50%
     TD0CTL0 |= MC_1 + TDCLR;                  // up-mode, clear TDR, Start timer
 
-    // Configure ADC10
-    ADC10CTL0 = ADC10SHT_2 + ADC10ON; 			// sample time of 16 clocks, turn on
-    											// use internal ADC 5 MHz clock
-    ADC10CTL1 = ADC10SHP + ADC10CONSEQ_0; 		// software trigger to start a sample
-    											// single channel conversion
-    ADC10CTL2 = ADC10RES; 						// use full 10 bit resolution
-    ADC10MCTL0 = ADC10SREF_1+ADC10INCH_5; 		// ADC10 ref: use VREF and AVSS
-    											// input channel A5 (pin 10)
-    											// Configure internal reference VREF
-    while(REFCTL0 & REFGENBUSY); 				// if ref gen is busy, wait
-    REFCTL0 |= REFVSEL_0 + REFON; 				// select VREF = 1.5 V, turn on
-    _delay_cycles(75); 							// delay for VREF to settle
 
     for (;;) {									// Infinite loop, blink LED
-     		P1OUT ^= 0x01;						// Toggle P1.0 output
-     		i = 1000000;
+     		count = TD0CCR1;
+     		if (count >= 2000){
+     			count = 0;
+     		}
+     		count = count + 40;
+     		TD0CCR1 = count;
+     		i = 15000000;
      		do(i--);
      		while(i != 0);						// Wait 10000 cycles
      	}
