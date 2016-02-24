@@ -7,6 +7,7 @@ void SetVcoreUp (unsigned int level);
  */
 void main(void) {
     volatile unsigned long i;	// Declare counter variable
+    volatile int X;
     WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
     P1SEL |= BIT6;				// Set P1.6 to output direction (Timer D0.0 output)
@@ -79,6 +80,10 @@ void main(void) {
 
     for (;;) {									// Infinite loop, blink LED
      		P1OUT ^= 0x01;						// Toggle P1.0 output
+     		ADC10CTL0 |= ADC10ENC + ADC10SC; // sampling and conversion start
+     		while(ADC10CTL1 & ADC10BUSY); // wait for completion
+     		X = ADC10MEM0; // ADC10MEM0 contains result
+     		ADC10CTL0 ^= ADC10ENC + ADC10SC; // sampling and conversion start
      		i = 1000000;
      		do(i--);
      		while(i != 0);						// Wait 10000 cycles
