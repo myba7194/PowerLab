@@ -60,7 +60,7 @@ void main(void) {
     // Configure the CCRx blocks
     TD0CCR0 = 2000;                           // PWM Period. So sw freq = 200MHz/2000 = 100 kHz
     TD0CCTL1 = OUTMOD_7 + CLLD_1;             // CCR1 reset/set
-    TD0CCR1 = 1400;                           // CCR1 PWM duty cycle of 1900/2000 = 95%
+    TD0CCR1 = 560;                           // CCR1 PWM duty cycle of 1900/2000 = 95%
     TD0CCTL2 = OUTMOD_7 + CLLD_1;             // CCR2 reset/set
     TD0CCR2 = 1000;                            // CCR2 PWM duty cycle of 1000/2000 = 50%
     TD0CTL0 |= MC_1 + TDCLR;                  // up-mode, clear TDR, Start timer
